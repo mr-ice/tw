@@ -165,6 +165,8 @@ Error message and password prompt
 
 <li>$:/isEncrypted</li>
 
+<li>$:/macros/sk/ColCalc.js</li>
+
 <li>$:/palette</li>
 
 <li>$:/SiteTitle</li>
@@ -213,11 +215,11 @@ Error message and password prompt
 
 <li>alias</li>
 
-<li>Breechill</li>
-
 <li>Call of Heroes</li>
 
 <li>Characters</li>
+
+<li>Draft of '6 January 2021'</li>
 
 <li>Equipment</li>
 
@@ -10149,6 +10151,141 @@ Error message and password prompt
 <div title="$:/isEncrypted">
 <pre>no</pre>
 </div>
+<div created="20210124174802077" modified="20210124174923300" tags="" title="$:/macros/sk/ColCalc.js" type="application/javascript">
+<pre>(function(){
+
+&quot;use strict&quot;;
+
+exports.name = &quot;ColCalc&quot;;
+
+exports.params = [
+{ name: &quot;tableid&quot;},
+{ name: &quot;func&quot;},
+{ name: &quot;startrow&quot; },
+{ name: &quot;endrow&quot; },
+{ name: &quot;modif&quot;}
+];
+
+/*
+Run the macro
+*/
+exports.run = function(tabid, fn, row, last, allrows) {
+
+/* Initialize the main variables */
+var allCells=(allrows.toLowerCase()=='all');
+var startrow=row; var endrow=last;
+
+try{
+    var parent = document.getElementById(tabid);
+    var xparent = parent.firstChild;
+    var nrows = xparent.rows.length-1; 
+}
+catch(err){
+    var xparent = document.getElementById(tabid);
+    var nrows = xparent.rows.length-1; 
+}
+var col=xparent.rows[nrows].cells.length-1;
+var nrow = xparent.getElementsByTagName(&quot;tr&quot;);
+var x=nrows;
+
+if (startrow&lt;=0) startrow=1*startrow+row; else startrow=startrow-1;
+if (startrow&lt;=0) startrow=0;
+endrow=last;
+if (endrow&lt;=0) endrow=1*endrow+x; 
+if (endrow&lt;startrow) endrow=startrow;
+
+var avg=0;
+var total=0;
+var count=0;
+var max=-99999999;
+var minimum=99999999;
+var r=0;
+
+for (r=startrow; r&lt;=endrow; r++) {
+var val=0;
+var counted=0;
+//crashes if cell does not exist
+
+try {
+    var cell = nrow[r].children[col].innerHTML;  
+}
+catch(err){
+    var cell =&quot;&quot;;
+}
+try {
+    eval(cell);
+}
+catch(err){
+    var res = cell.search(&quot;&lt;&quot;);
+
+    if (res&gt;-1) // a function
+       {
+    var cell=nrow[r].children[col].children[0].value;
+// but since we can't always interpret them we'll replace it 
+    if (cell === undefined)  cell = &quot;&quot;;
+}
+} //end catch
+
+var hms=cell.split(':');
+// an hh:mm:ss time value
+if (hms.length==3) {
+    var val=(hms[0]||0)*3600+(hms[1]||0)*60+(hms[2]||0)*1;
+    var showTime=true; // use time formatting for results...
+     total+=val; count++;counted=1;
+    if (val&lt;minimum) {minimum=val; }
+    if(val&gt;max) {max=val;}
+} 
+
+// a numeric value
+if (cell.length &amp;&amp; !isNaN(cell)) {
+    var val=eval(cell);
+    total+=val; count++;counted=1;
+    if (val&lt;minimum) {minimum=val; }
+    if(val&gt;max) {max=val;}
+}
+else 
+//non-numeric, non-empty
+
+if(cell.length &amp;&amp; allCells &amp;&amp; counted&lt;1) {count++}
+
+} //end for loop
+
+switch (fn) {
+	case 'count':
+		var result=count;
+		break;
+	case 'maximum':
+	case 'max':
+//                if (max =99999999) max=&quot;N/A&quot;;
+		var result=max;
+		break;
+	case 'minimum':
+	case 'min':
+//                if (minimum =-99999999) minimum=&quot;N/A&quot;;
+		var result=minimum;
+		break;
+	case 'average':
+	case 'avg':
+		var result=Math.floor(total/count*100)/100; // truncate to two decimal places
+		break;
+	case 'total':
+	case 'sum':
+	default:
+		var result=total;
+		break;
+} // end switch
+
+if (showTime &amp;&amp; fn!='count') {
+	var h=Math.floor(result/3600);
+	var m=Math.floor((result-h*3600)/60);
+	var s=Math.floor((result-h*3600-m*60)*100)/100; // truncate to two decimal places
+	result=(h&lt;10?'0':'')+h+':'+(m&lt;10?'0':'')+m+':'+(s&lt;10?'0':'')+s;
+} //end showtime
+return result;
+};
+
+})();</pre>
+</div>
 <div created="20210123011008936" modified="20210123011022072" title="$:/palette">
 <pre>$:/palettes/GruvboxDark</pre>
 </div>
@@ -10176,8 +10313,8 @@ Error message and password prompt
 <div created="20210123005914887" modified="20210123005914887" title="$:/state/tab-2065006209">
 <pre>$:/core/ui/ControlPanel/Saving/GitHub</pre>
 </div>
-<div created="20210123005832696" modified="20210124174146324" title="$:/state/tab/moresidebar-1850697562">
-<pre>$:/core/ui/MoreSideBar/Missing</pre>
+<div created="20210123005832696" modified="20210123214040237" title="$:/state/tab/moresidebar-1850697562">
+<pre>$:/core/ui/MoreSideBar/All</pre>
 </div>
 <div created="20210123005830330" modified="20210123010938470" title="$:/state/tab/sidebar--595412856">
 <pre>$:/core/ui/SideBar/More</pre>
@@ -10188,7 +10325,7 @@ Error message and password prompt
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div created="20210124174134974" list="[[Call of Heroes]] Breechill [[20 January 2021]] [[Needed in Town]]" modified="20210124174214865" title="$:/StoryList">
+<div created="20210124174639011" list="$:/macros/sk/ColCalc.js [[Draft of '6 January 2021']] [[20 January 2021]] [[Party Equipment]]" modified="20210124174643959" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20210123011358732" modified="20210123011615779" title="$:/theme">
@@ -10330,9 +10467,9 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20210123011405381" modified="20210124174208270" tags="Journal" title="20 January 2021">
+<div created="20210123011405381" modified="20210123025811638" tags="Journal" title="20 January 2021">
 <pre>!!chest 1
-*potion (not healing) [[Treyist]]
+*potion (not healing) [[Treyty]]
 *morning-star (low silvered)
 * little green figurine of a cat (minor abjuration) (jade cat - talisman affixed to armor - acrobatically inclined)
 ** for 1 min after activating, treat all falls as 20ft shorter, not flat footed, no difficult terrain - free action to activate) [[Tup]]
@@ -10345,7 +10482,7 @@ Error message and password prompt
 !!chest 3
 * flail (low silvered)
 * red crystal with a glow (evocation) (potency crystal - single use affix to weapon - magical for a turn)  - ritual - [[Schtud]]
-* potion of not healing  [[Treyist]]
+* potion of not healing  [[Treyty]]
 
 !!chest 4
 * light hammer (low silvered) [[Tup]]
@@ -10434,9 +10571,6 @@ Elf Witch</pre>
 
 &lt;$set name=&quot;the_alias&quot; value={{!!title}}&gt;&lt;&lt;find_original&gt;&gt;&lt;/$set&gt;</pre>
 </div>
-<div created="20210124174219329" modified="20210124174241873" tags="location" title="Breechill">
-<pre>Town where our adventures began with the [[Call of Heroes]]</pre>
-</div>
 <div created="20210123020840481" modified="20210123025815726" tags="" title="Call of Heroes">
 <pre>[[Warble Bumblebrasher]] (Female Goblin Ambassador of the [[Bumblebrasher]] tribe to the city of [[Breechill]]
 
@@ -10522,6 +10656,25 @@ XP: 225</pre>
 [[Acaraian]] - Michael
 
 [[Treyist]] - Trey</pre>
+</div>
+<div created="20210123020957103" draft.of="6 January 2021" draft.title="6 January 2021" modified="20210124174647858" tags="Journal" title="Draft of '6 January 2021'">
+<pre>coins - 5s 40c
+
+scroll of alarm [[Acaraian]]
+
+scroll of fear  [[Acaraian]]
+
+body on the graveshell: chain shirt, 6g, 9s, and a pouch.
+
+Head of the order's office:  Looking through the desk we find a book: Treatise on the Nail Protocols as they relate to ....
+
+for 5 people:
+
+* {{{ [[6]divide[4]] }}}g
+* {{{ [[14]divide[4]] }}}s
+* {{{ [[40]divide[4]] }}}c
+
+(= 58800/6 =) per player</pre>
 </div>
 <div created="20210123013143600" modified="20210123015903174" tags="equipment" title="Equipment">
 <pre>[[Party Equipment]]
