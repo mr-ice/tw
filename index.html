@@ -10639,8 +10639,8 @@ return result;
 <div created="20210123013017029" modified="20210123013017029" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div created="20210603025807767" modified="20210603142411943" title="$:/state/sidebar">
-<pre>yes</pre>
+<div created="20210603025807767" modified="20210603142707496" title="$:/state/sidebar">
+<pre>no</pre>
 </div>
 <div created="20210123011227173" modified="20210123011227173" title="$:/state/tab--1418380610">
 <pre>$:/core/ui/ControlPanel/Plugins/Add/Themes</pre>
@@ -12167,18 +12167,36 @@ given by Syriana [[16 March 2021]]
 
 must have key for zone or adjacent zone</pre>
 </div>
-<div cp="1300" created="20210603002147321" ep="0" gp="60" modified="20210603142415383" pp="0" share="4.5" sp="700" tags="" title="GP Distribution">
-<pre>&lt;$set name=share value={{!!share}}&gt;
+<div cp="1300" created="20210603002147321" ep="0" gp="60" modified="20210603155740664" pp="0" share="4.5" sp="700" tags="" title="GP Distribution">
+<pre>
+&lt;$vars pp={{!!pp}} ep={{!!ep}} gp={{!!gp}} sp={{!!sp}} cp={{!!cp}}&gt;
 
-&lt;$set name=gpshare filter=&quot;[{!!gp}divide[4.5]trunc[]]&quot;&gt;
-&lt;$set name=gpremainder filter=&quot;[{!!gp}divide[4.5]]&quot;&gt;
-&lt;$set name=spshare filter=&quot;[{!!sp}divide[4.5]trunc[]]&quot;&gt;
-&lt;$set name=cpshare filter=&quot;[{!!cp}divide[4.5]trunc[]]&quot;&gt;
+&lt;$set name=sharepp filter=&quot;[{!!pp}divide{!!share}trunc[]]&quot;&gt;
+&lt;$set name=remainderpp filter=&quot;[{!!pp}remainder{!!share}]&quot;&gt;
 
-* Split: &lt;&lt;share&gt;&gt;
-* GP: &lt;&lt;gpshare&gt;&gt; gp   leaving &lt;&lt;gpremainder&gt;&gt;
-* SP: &lt;&lt;spshare&gt;&gt; sp
-* CP: &lt;&lt;cpshare&gt;&gt; cp
+&lt;$set name=shareep filter=&quot;[{!!ep}divide{!!share}trunc[]]&quot;&gt;
+&lt;$set name=remainderep filter=&quot;[{!!ep}remainder{!!share}]&quot;&gt;
+
+&lt;$set name=sharegp filter=&quot;[{!!gp}divide{!!share}trunc[]]&quot;&gt;
+&lt;$set name=remaindergp filter=&quot;[{!!gp}remainder{!!share}]&quot;&gt;
+
+&lt;$set name=sharesp filter=&quot;[{!!sp}divide{!!share}trunc[]]&quot;&gt;
+&lt;$set name=remaindersp filter=&quot;[{!!sp}remainder{!!share}]&quot;&gt;
+
+&lt;$set name=sharecp filter=&quot;[{!!cp}divide{!!share}trunc[]]&quot;&gt;
+&lt;$set name=remaindercp filter=&quot;[{!!cp}remainder{!!share}]&quot;&gt;
+
+&lt;$set name=remaindersp filter=&quot;&quot;&gt;
+
+
+| split: {{!!share}}|Found|Share|Half|
+| PP | &lt;&lt;pp&gt;&gt; | &lt;&lt;sharepp&gt;&gt; | (= trunc(&lt;&lt;sharepp&gt;&gt;/2) =) |
+| EP | &lt;&lt;ep&gt;&gt; | &lt;&lt;shareep&gt;&gt; | (= trunc(&lt;&lt;shareep&gt;&gt;/2) =) |
+| GP | &lt;&lt;gp&gt;&gt; | &lt;&lt;sharegp&gt;&gt; | (= trunc(&lt;&lt;sharegp&gt;&gt;/2) =) |
+| SP | &lt;&lt;sp&gt;&gt; | &lt;&lt;sharesp&gt;&gt; | (= trunc(&lt;&lt;sharesp&gt;&gt;/2) =) |
+| CP | &lt;&lt;cp&gt;&gt; | &lt;&lt;sharecp&gt;&gt; | (= trunc(&lt;&lt;sharecp&gt;&gt;/2) =) |
+
+* Remaining &lt;&lt;remaindergp&gt;&gt; gp &lt;&lt;remaindersp&gt;&gt; sp &lt;&lt;remaindercp&gt;&gt; cp
 
 
 `(= trunc( gp / 5.5 ) =)`
