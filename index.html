@@ -10639,7 +10639,7 @@ return result;
 <div created="20210123013017029" modified="20210123013017029" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div created="20210603025807767" modified="20210603142707496" title="$:/state/sidebar">
+<div created="20210603025807767" modified="20210603155802864" title="$:/state/sidebar">
 <pre>no</pre>
 </div>
 <div created="20210123011227173" modified="20210123011227173" title="$:/state/tab--1418380610">
@@ -10669,7 +10669,7 @@ return result;
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div created="20210602233741532" list="[[GP Distribution]] [[2 June 2021]] [[26 May 2021]] Links Characters" modified="20210603025732878" title="$:/StoryList">
+<div created="20210603155756767" list="[[GP Distribution]] Links Characters" modified="20210603155756767" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20210123011358732" modified="20210123011615779" title="$:/theme">
@@ -12167,41 +12167,29 @@ given by Syriana [[16 March 2021]]
 
 must have key for zone or adjacent zone</pre>
 </div>
-<div cp="1300" created="20210603002147321" ep="0" gp="60" modified="20210603155740664" pp="0" share="4.5" sp="700" tags="" title="GP Distribution">
+<div cp="1300" created="20210603002147321" ep="0" gp="60" modified="20210603160750516" pp="0" share="4.5" sp="700" tags="" title="GP Distribution">
 <pre>
-&lt;$vars pp={{!!pp}} ep={{!!ep}} gp={{!!gp}} sp={{!!sp}} cp={{!!cp}}&gt;
+&lt;$set name=gpshare filter=&quot;[{!!gp}divide{!!share}}trunc[]]&quot;&gt;
 
-&lt;$set name=sharepp filter=&quot;[{!!pp}divide{!!share}trunc[]]&quot;&gt;
-&lt;$set name=remainderpp filter=&quot;[{!!pp}remainder{!!share}]&quot;&gt;
+| | loot | share: {{!!share}} | half |h
+| PP | {{!!pp}} | (= trunc({{!!pp}}/{{!!share}}) =) | (= trunc({{!!pp}}/{{!!share}}/2) =) |
+| EP | {{!!ep}} | (= trunc({{!!ep}}/{{!!share}}) =) | (= trunc({{!!ep}}/{{!!share}}/2) =) |
+| GP | {{!!gp}} | (= trunc({{!!gp}}/{{!!share}}) =) | (= trunc({{!!gp}}/{{!!share}}/2) =) |
+| SP | {{!!sp}} | (= trunc({{!!sp}}/{{!!share}}) =) | (= trunc({{!!sp}}/{{!!share}}/2) =) |
+| CP | {{!!cp}} | (= trunc({{!!cp}}/{{!!share}}) =) | (= trunc({{!!cp}}/{{!!share}}/2) =) |
 
-&lt;$set name=shareep filter=&quot;[{!!ep}divide{!!share}trunc[]]&quot;&gt;
-&lt;$set name=remainderep filter=&quot;[{!!ep}remainder{!!share}]&quot;&gt;
-
-&lt;$set name=sharegp filter=&quot;[{!!gp}divide{!!share}trunc[]]&quot;&gt;
-&lt;$set name=remaindergp filter=&quot;[{!!gp}remainder{!!share}]&quot;&gt;
-
-&lt;$set name=sharesp filter=&quot;[{!!sp}divide{!!share}trunc[]]&quot;&gt;
-&lt;$set name=remaindersp filter=&quot;[{!!sp}remainder{!!share}]&quot;&gt;
-
-&lt;$set name=sharecp filter=&quot;[{!!cp}divide{!!share}trunc[]]&quot;&gt;
-&lt;$set name=remaindercp filter=&quot;[{!!cp}remainder{!!share}]&quot;&gt;
-
-&lt;$set name=remaindersp filter=&quot;&quot;&gt;
-
-
-| split: {{!!share}}|Found|Share|Half|
-| PP | &lt;&lt;pp&gt;&gt; | &lt;&lt;sharepp&gt;&gt; | (= trunc(&lt;&lt;sharepp&gt;&gt;/2) =) |
-| EP | &lt;&lt;ep&gt;&gt; | &lt;&lt;shareep&gt;&gt; | (= trunc(&lt;&lt;shareep&gt;&gt;/2) =) |
-| GP | &lt;&lt;gp&gt;&gt; | &lt;&lt;sharegp&gt;&gt; | (= trunc(&lt;&lt;sharegp&gt;&gt;/2) =) |
-| SP | &lt;&lt;sp&gt;&gt; | &lt;&lt;sharesp&gt;&gt; | (= trunc(&lt;&lt;sharesp&gt;&gt;/2) =) |
-| CP | &lt;&lt;cp&gt;&gt; | &lt;&lt;sharecp&gt;&gt; | (= trunc(&lt;&lt;sharecp&gt;&gt;/2) =) |
-
-* Remaining &lt;&lt;remaindergp&gt;&gt; gp &lt;&lt;remaindersp&gt;&gt; sp &lt;&lt;remaindercp&gt;&gt; cp
-
+&lt;$set name=ppremainder filter=&quot;[{!!pp}]&quot;&gt;
+&lt;$set name=epremainder filter=&quot;[{!!pp}]&quot;&gt;
+&lt;$set name=gpremainder filter=&quot;[{!!pp}]&quot;&gt;
+&lt;$set name=spremainder filter=&quot;[{!!pp}]&quot;&gt;
+&lt;$set name=cpremainder filter=&quot;[{!!pp}]&quot;&gt;
+Remainder: &lt;&lt;ppremainder&gt;&gt; pp &lt;&lt;epremainder&gt;&gt; ep &lt;&lt;gpremainder&gt;&gt; gp &lt;&lt;spremainder&gt;&gt; sp &lt;&lt;cpremainder&gt;&gt; cp&lt;br&gt;
 
 `(= trunc( gp / 5.5 ) =)`
 
+
 `(= trunc( &lt;&lt;gp&gt;&gt;/&lt;&lt;shares&gt;&gt; ) =)`
+
 
 `(= gp - trunc( gp / 5.5 ) =)`
 </pre>
