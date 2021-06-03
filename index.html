@@ -12167,23 +12167,35 @@ given by Syriana [[16 March 2021]]
 
 must have key for zone or adjacent zone</pre>
 </div>
-<div cp="1300" created="20210603002147321" ep="0" gp="60" modified="20210603160750516" pp="0" share="4.5" sp="700" tags="" title="GP Distribution">
+<div cp="1300" created="20210603002147321" ep="9" gp="60" modified="20210603162005841" pp="3" share="5.5" sp="700" tags="" title="GP Distribution">
 <pre>
-&lt;$set name=gpshare filter=&quot;[{!!gp}divide{!!share}}trunc[]]&quot;&gt;
+&lt;$set name=gpshare filter=&quot;[{!!gp}divide{!!share}trunc[]]&quot;&gt;
 
-| | loot | share: {{!!share}} | half |h
-| PP | {{!!pp}} | (= trunc({{!!pp}}/{{!!share}}) =) | (= trunc({{!!pp}}/{{!!share}}/2) =) |
-| EP | {{!!ep}} | (= trunc({{!!ep}}/{{!!share}}) =) | (= trunc({{!!ep}}/{{!!share}}/2) =) |
-| GP | {{!!gp}} | (= trunc({{!!gp}}/{{!!share}}) =) | (= trunc({{!!gp}}/{{!!share}}/2) =) |
-| SP | {{!!sp}} | (= trunc({{!!sp}}/{{!!share}}) =) | (= trunc({{!!sp}}/{{!!share}}/2) =) |
-| CP | {{!!cp}} | (= trunc({{!!cp}}/{{!!share}}) =) | (= trunc({{!!cp}}/{{!!share}}/2) =) |
+| looted | shares&lt;br&gt;{{!!share}} | full | half |h
+| {{!!pp}} | PP | (= trunc({{!!pp}}/{{!!share}}) =) | (= trunc({{!!pp}}/{{!!share}}/2) =) |
+| {{!!ep}} | EP | (= trunc({{!!ep}}/{{!!share}}) =) | (= trunc({{!!ep}}/{{!!share}}/2) =) |
+| {{!!gp}} | GP | (= trunc({{!!gp}}/{{!!share}}) =) | (= trunc({{!!gp}}/{{!!share}}/2) =) |
+| {{!!sp}} | SP | (= trunc({{!!sp}}/{{!!share}}) =) | (= trunc({{!!sp}}/{{!!share}}/2) =) |
+| {{!!cp}} | CP | (= trunc({{!!cp}}/{{!!share}}) =) | (= trunc({{!!cp}}/{{!!share}}/2) =) |
 
-&lt;$set name=ppremainder filter=&quot;[{!!pp}]&quot;&gt;
-&lt;$set name=epremainder filter=&quot;[{!!pp}]&quot;&gt;
-&lt;$set name=gpremainder filter=&quot;[{!!pp}]&quot;&gt;
-&lt;$set name=spremainder filter=&quot;[{!!pp}]&quot;&gt;
-&lt;$set name=cpremainder filter=&quot;[{!!pp}]&quot;&gt;
+&lt;$set name=ppremainder filter=&quot;[{!!pp}remainder{!!share}trunc[]]&quot;&gt;
+&lt;$set name=epremainder filter=&quot;[{!!ep}remainder{!!share}trunc[]]&quot;&gt;
+&lt;$set name=gpplus filter=&quot;[{!pp}remainder{!!share}]&quot;
+&lt;$set name=gpremainder filter=&quot;[{!!gp}remainder{!!share}trunc[]]&quot;&gt;
+
+
+&lt;$set name=spremainder filter=&quot;[{!!sp}remainder{!!share}trunc[]]&quot;&gt;
+&lt;$set name=cpremainder filter=&quot;[{!!cp}remainder{!!share}]&quot;&gt;
+
 Remainder: &lt;&lt;ppremainder&gt;&gt; pp &lt;&lt;epremainder&gt;&gt; ep &lt;&lt;gpremainder&gt;&gt; gp &lt;&lt;spremainder&gt;&gt; sp &lt;&lt;cpremainder&gt;&gt; cp&lt;br&gt;
+
+
+This is `&lt;&lt;gpshare&gt;&gt;` &lt;&lt;gpshare&gt;&gt; &lt;br/&gt;
+This is `{!!gpshare}` {!!gpshare} &lt;br/&gt;
+This is `{{!!gpshare}}` {{!!gpshare}} &lt;br/&gt;
+This is `{{{!!gpshare}}}` {{{!!gpshare}}} &lt;br/&gt;
+This is `(= &lt;&lt;gpshare&gt;&gt; =)` (= &lt;&lt;gpshare&gt;&gt; =)
+
 
 `(= trunc( gp / 5.5 ) =)`
 
