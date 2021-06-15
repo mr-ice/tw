@@ -273,6 +273,8 @@ Error message and password prompt
 
 <li>Dr. A Goblin</li>
 
+<li>Draft of 'GP Distribution'</li>
+
 <li>Glyph Key</li>
 
 <li>GP Distribution</li>
@@ -10688,7 +10690,7 @@ return result;
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div created="20210615002621171" list="[[9 June 2021]] [[Alternate ending]] [[Greater Potion of Respite]] Links Characters" modified="20210615004223495" title="$:/StoryList">
+<div created="20210615002621171" list="[[Draft of 'GP Distribution']] [[9 June 2021]] [[Alternate ending]] [[Greater Potion of Respite]] Links Characters" modified="20210615015907299" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20210123011358732" modified="20210123011615779" title="$:/theme">
@@ -12176,7 +12178,7 @@ Party disbanded and faces a choice of coming back with new chars or taking new c
  
 </pre>
 </div>
-<div created="20210615001941167" modified="20210615005005596" title="Alternate ending">
+<div created="20210615001941167" modified="20210615015917064" title="Alternate ending">
 <pre>As you were leaving the windmill, barely alive, but happy after slaying the Orc warlord a window opened.  Fearing the worst, you turned and readied.
 
 “Hey!  Nice job, we never liked him,” says the hobgoblin.  “Do you want this barely alive bird guy he captured and had us watching?”
@@ -12194,6 +12196,7 @@ A journal written in Orc.
 !!!Loot:
 * [[Royal Oil of Ice]]
 * [[Greater Potion of Respite]]
+* Spell Scroll (Wall of Force, 5th evocation)
 
 | item | gp sell for | notes | share/5|h
 | A great axe of superior quality - sell for 2x base price (60gp) | 60 | 30*2 | (= 60 /5 =) |
@@ -12202,14 +12205,10 @@ A journal written in Orc.
 
 | cash | share/5 |h
 |2000 cp | (= 2000/5 =) cp |
-| 1400 sp | (= 1400/5 =) sp |
-| 70 gp | (= 70/5 =) gp |
-| 7 gems (  2 x Blue quartz (10 gp) 
-, 3 x Malachite (10 gp), Moss agate (10 gp), Rhodochrosite (10 gp) | 
- (= 70/5 =) gp |
-p
+|1400 sp | (= 1400/5 =) sp |
+|70 gp | (= 70/5 =) gp |
+|7 gems (  2 x Blue quartz (10 gp), 3x Malachite (10 gp), Moss agate (10 gp), Rhodochrosite (10 gp)  |  (= 70/5 =) gp |
 
-SSpell Scroll (Wall of Force)
 
 
 Carry back and sell whatever you can.  The below was not carryable.  You’ll need a cart.
@@ -12268,6 +12267,44 @@ Goblin of some sort.  Was able to recover some baubles of some sort from the chr
 
 
 !!Retired.</pre>
+</div>
+<div cp="1300" created="20210603002147321" draft.of="GP Distribution" draft.title="GP Distribution" ep="9" gp="60" modified="20210615015910216" pp="3" share="5.5" sp="700" tags="" title="Draft of 'GP Distribution'">
+<pre>&lt;$set name=gpshare filter=&quot;[{!!gp}divide{!!share}trunc[]]&quot;&gt;
+
+| looted | shares&lt;br&gt;{{!!share}} | full | half |h
+| {{!!pp}} | PP | (= trunc({{!!pp}}/{{!!share}}) =) | (= trunc({{!!pp}}/{{!!share}}/2) =) |
+| {{!!ep}} | EP | (= trunc({{!!ep}}/{{!!share}}) =) | (= trunc({{!!ep}}/{{!!share}}/2) =) |
+| {{!!gp}} | GP | (= trunc({{!!gp}}/{{!!share}}) =) | (= trunc({{!!gp}}/{{!!share}}/2) =) |
+| {{!!sp}} | SP | (= trunc({{!!sp}}/{{!!share}}) =) | (= trunc({{!!sp}}/{{!!share}}/2) =) |
+| {{!!cp}} | CP | (= trunc({{!!cp}}/{{!!share}}) =) | (= trunc({{!!cp}}/{{!!share}}/2) =) |
+
+&lt;$set name=ppremainder filter=&quot;[{!!pp}remainder{!!share}trunc[]]&quot;&gt;
+&lt;$set name=epremainder filter=&quot;[{!!ep}remainder{!!share}trunc[]]&quot;&gt;
+&lt;$set name=gpplus filter=&quot;[{!pp}remainder{!!share}]&quot;
+&lt;$set name=gpremainder filter=&quot;[{!!gp}remainder{!!share}trunc[]]&quot;&gt;
+
+
+&lt;$set name=spremainder filter=&quot;[{!!sp}remainder{!!share}trunc[]]&quot;&gt;
+&lt;$set name=cpremainder filter=&quot;[{!!cp}remainder{!!share}]&quot;&gt;
+
+Remainder: &lt;&lt;ppremainder&gt;&gt; pp &lt;&lt;epremainder&gt;&gt; ep &lt;&lt;gpremainder&gt;&gt; gp &lt;&lt;spremainder&gt;&gt; sp &lt;&lt;cpremainder&gt;&gt; cp&lt;br&gt;
+
+
+This is `&lt;&lt;gpshare&gt;&gt;` &lt;&lt;gpshare&gt;&gt; &lt;br/&gt;
+This is `{!!gpshare}` {!!gpshare} &lt;br/&gt;
+This is `{{!!gpshare}}` {{!!gpshare}} &lt;br/&gt;
+This is `{{{!!gpshare}}}` {{{!!gpshare}}} &lt;br/&gt;
+This is `(= &lt;&lt;gpshare&gt;&gt; =)` (= &lt;&lt;gpshare&gt;&gt; =)
+
+
+`(= trunc( gp / 5.5 ) =)`
+
+
+`(= trunc( &lt;&lt;gp&gt;&gt;/&lt;&lt;shares&gt;&gt; ) =)`
+
+
+`(= gp - trunc( gp / 5.5 ) =)`
+</pre>
 </div>
 <div created="20210317002420862" modified="20210317002556182" title="Glyph Key">
 <pre>attuned to a zone or zones
